@@ -133,7 +133,7 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return mixed
      */
-    public function get(string $key, mixed $default): mixed
+    public function get(string $key, mixed $default = null): mixed
     {
         $value = $this->softGet($key);
         if ($value === null) {
