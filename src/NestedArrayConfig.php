@@ -119,16 +119,6 @@ final class NestedArrayConfig implements ConfigInterface
 
     /**
      * @param string $key
-     *
-     * @return bool
-     */
-    public function has(string $key): bool
-    {
-        return $this->softGet($key) !== null;
-    }
-
-    /**
-     * @param string $key
      * @param mixed  $default
      *
      * @return mixed
@@ -150,7 +140,7 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return mixed
      */
-    private function softGet(string $key): mixed
+    public function softGet(string $key): mixed
     {
         $paths = explode(self::DELIMITER, $key);
         $current = $this->config;
@@ -161,5 +151,15 @@ final class NestedArrayConfig implements ConfigInterface
             $current = $current[$index];
         }
         return $current;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function has(string $key): bool
+    {
+        return $this->softGet($key) !== null;
     }
 }

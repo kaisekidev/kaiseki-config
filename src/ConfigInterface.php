@@ -31,5 +31,7 @@ interface ConfigInterface
 
     public function get(string $key, mixed $default = null): mixed;
 
+    public function softGet(string $key): mixed;
+
     public function has(string $key): bool;
 }
