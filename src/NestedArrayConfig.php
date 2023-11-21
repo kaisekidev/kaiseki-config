@@ -33,9 +33,9 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return string
      */
-    public function string(string $key, ?string $default = null): string
+    public function string(string $key, ?string $default = null, bool $nullable = false): string
     {
-        $value = $this->get($key, $default);
+        $value = $this->get($key, $default, $nullable);
         if (!is_string($value)) {
             throw InvalidValueException::expectedStringFromKey($key, $value);
         }
@@ -48,9 +48,9 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return int
      */
-    public function int(string $key, ?int $default = null): int
+    public function int(string $key, ?int $default = null, bool $nullable = false): int
     {
-        $value = $this->get($key, $default);
+        $value = $this->get($key, $default, $nullable);
         if (!is_int($value)) {
             throw InvalidValueException::expectedIntegerFromKey($key, $value);
         }
@@ -63,9 +63,9 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return float
      */
-    public function float(string $key, ?float $default = null): float
+    public function float(string $key, ?float $default = null, bool $nullable = false): float
     {
-        $value = $this->get($key, $default);
+        $value = $this->get($key, $default, $nullable);
         if (!is_float($value)) {
             throw InvalidValueException::expectedFloatFromKey($key, $value);
         }
@@ -78,9 +78,9 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return bool
      */
-    public function bool(string $key, ?bool $default = null): bool
+    public function bool(string $key, ?bool $default = null, bool $nullable = false): bool
     {
-        $value = $this->get($key, $default);
+        $value = $this->get($key, $default, $nullable);
         if (!is_bool($value)) {
             throw InvalidValueException::expectedBooleanFromKey($key, $value);
         }
@@ -93,9 +93,9 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return array<array-key, mixed>
      */
-    public function array(string $key, ?array $default = null): array
+    public function array(string $key, ?array $default = null, bool $nullable = false): array
     {
-        $value = $this->get($key, $default);
+        $value = $this->get($key, $default, $nullable);
         if (!is_array($value)) {
             throw InvalidValueException::expectedArrayFromKey($key, $value);
         }
@@ -108,9 +108,9 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return callable
      */
-    public function callable(string $key, ?callable $default = null): callable
+    public function callable(string $key, ?callable $default = null, bool $nullable = false): callable
     {
-        $value = $this->get($key, $default);
+        $value = $this->get($key, $default, $nullable);
         if (!is_callable($value)) {
             throw InvalidValueException::expectedBooleanFromKey($key, $value);
         }
@@ -123,11 +123,11 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return mixed
      */
-    public function get(string $key, mixed $default = null): mixed
+    public function get(string $key, mixed $default = null, bool $nullable = false): mixed
     {
         $value = $this->softGet($key);
         if ($value === null) {
-            if ($default !== null) {
+            if ($default !== null || $nullable) {
                 return $default;
             }
             throw UnknownKeyException::fromKey($key);
