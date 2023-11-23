@@ -30,6 +30,7 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string      $key
      * @param string|null $default
+     * @param bool        $nullable
      *
      * @return string
      */
@@ -45,6 +46,7 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string   $key
      * @param int|null $default
+     * @param bool     $nullable
      *
      * @return int
      */
@@ -60,6 +62,7 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string     $key
      * @param float|null $default
+     * @param bool       $nullable
      *
      * @return float
      */
@@ -75,6 +78,7 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string    $key
      * @param bool|null $default
+     * @param bool      $nullable
      *
      * @return bool
      */
@@ -88,8 +92,9 @@ final class NestedArrayConfig implements ConfigInterface
     }
 
     /**
-     * @param string     $key
+     * @param string                       $key
      * @param array<array-key, mixed>|null $default
+     * @param bool                         $nullable
      *
      * @return array<array-key, mixed>
      */
@@ -105,6 +110,7 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string        $key
      * @param callable|null $default
+     * @param bool          $nullable
      *
      * @return callable
      */
@@ -112,7 +118,7 @@ final class NestedArrayConfig implements ConfigInterface
     {
         $value = $this->get($key, $default, $nullable);
         if (!is_callable($value)) {
-            throw InvalidValueException::expectedBooleanFromKey($key, $value);
+            throw InvalidValueException::expectedCallableFromKey($key, $value);
         }
         return $value;
     }
@@ -120,6 +126,7 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string $key
      * @param mixed  $default
+     * @param bool   $nullable
      *
      * @return mixed
      */

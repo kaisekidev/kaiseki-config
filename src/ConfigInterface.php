@@ -15,19 +15,13 @@ interface ConfigInterface
     public function bool(string $key, ?bool $default = null, bool $nullable = false): bool;
 
     /**
+     * @param string                  $key
      * @param array<array-key, mixed> $default
+     * @param bool                    $nullable
      *
      * @return array<array-key, mixed>
      */
     public function array(string $key, ?array $default = null, bool $nullable = false): array;
-
-    /**
-     * @param string        $key
-     * @param callable|null $default
-     *
-     * @return callable
-     */
-    public function callable(string $key, ?callable $default = null, bool $nullable = false): callable;
 
     public function get(string $key, mixed $default = null, bool $nullable = false): mixed;
 
