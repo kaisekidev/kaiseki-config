@@ -30,13 +30,12 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string      $key
      * @param string|null $default
-     * @param bool        $nullable
      *
      * @return string
      */
-    public function string(string $key, ?string $default = null, bool $nullable = false): string
+    public function string(string $key, ?string $default = null): string
     {
-        $value = $this->get($key, $default, $nullable);
+        $value = $this->get($key, $default, false);
         if (!is_string($value)) {
             throw InvalidValueException::expectedStringFromKey($key, $value);
         }
@@ -46,13 +45,12 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string   $key
      * @param int|null $default
-     * @param bool     $nullable
      *
      * @return int
      */
-    public function int(string $key, ?int $default = null, bool $nullable = false): int
+    public function int(string $key, ?int $default = null): int
     {
-        $value = $this->get($key, $default, $nullable);
+        $value = $this->get($key, $default, false);
         if (!is_int($value)) {
             throw InvalidValueException::expectedIntegerFromKey($key, $value);
         }
@@ -66,9 +64,9 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return float
      */
-    public function float(string $key, ?float $default = null, bool $nullable = false): float
+    public function float(string $key, ?float $default = null): float
     {
-        $value = $this->get($key, $default, $nullable);
+        $value = $this->get($key, $default, false);
         if (!is_float($value)) {
             throw InvalidValueException::expectedFloatFromKey($key, $value);
         }
@@ -78,13 +76,12 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string    $key
      * @param bool|null $default
-     * @param bool      $nullable
      *
      * @return bool
      */
-    public function bool(string $key, ?bool $default = null, bool $nullable = false): bool
+    public function bool(string $key, ?bool $default = null): bool
     {
-        $value = $this->get($key, $default, $nullable);
+        $value = $this->get($key, $default, false);
         if (!is_bool($value)) {
             throw InvalidValueException::expectedBooleanFromKey($key, $value);
         }
@@ -94,13 +91,12 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string                       $key
      * @param array<array-key, mixed>|null $default
-     * @param bool                         $nullable
      *
      * @return array<array-key, mixed>
      */
-    public function array(string $key, ?array $default = null, bool $nullable = false): array
+    public function array(string $key, ?array $default = null): array
     {
-        $value = $this->get($key, $default, $nullable);
+        $value = $this->get($key, $default, false);
         if (!is_array($value)) {
             throw InvalidValueException::expectedArrayFromKey($key, $value);
         }
@@ -110,13 +106,12 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string        $key
      * @param callable|null $default
-     * @param bool          $nullable
      *
      * @return callable
      */
-    public function callable(string $key, ?callable $default = null, bool $nullable = false): callable
+    public function callable(string $key, ?callable $default = null): callable
     {
-        $value = $this->get($key, $default, $nullable);
+        $value = $this->get($key, $default, false);
         if (!is_callable($value)) {
             throw InvalidValueException::expectedCallableFromKey($key, $value);
         }
@@ -130,7 +125,7 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return mixed
      */
-    public function get(string $key, mixed $default = null, bool $nullable = false): mixed
+    public function get(string $key, mixed $default = null, bool $nullable = true): mixed
     {
         $value = $this->softGet($key);
         if ($value === null) {
