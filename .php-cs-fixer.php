@@ -9,6 +9,7 @@ $finder = new Finder();
 
 $finder
     ->in(__DIR__ . '/src')
+    ->in(__DIR__ . '/tests')
     ->files()
     ->name('*.php');
 

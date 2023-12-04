@@ -22,6 +22,8 @@ final class FakeContainer implements ContainerInterface
     }
 
     /**
+     * @param string $id
+     *
      * @return mixed
      */
     public function get(string $id)

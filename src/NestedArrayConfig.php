@@ -18,7 +18,7 @@ use function is_string;
 
 final class NestedArrayConfig implements ConfigInterface
 {
-    public const DELIMITER = '/';
+    public const DELIMITER = '.';
 
     /**
      * @param array<array-key, mixed> $config
@@ -35,7 +35,7 @@ final class NestedArrayConfig implements ConfigInterface
      */
     public function string(string $key, ?string $default = null): string
     {
-        $value = $this->get($key, $default, false);
+        $value = $this->get($key, $default);
         if (!is_string($value)) {
             throw InvalidValueException::expectedStringFromKey($key, $value);
         }
@@ -50,7 +50,7 @@ final class NestedArrayConfig implements ConfigInterface
      */
     public function int(string $key, ?int $default = null): int
     {
-        $value = $this->get($key, $default, false);
+        $value = $this->get($key, $default);
         if (!is_int($value)) {
             throw InvalidValueException::expectedIntegerFromKey($key, $value);
         }
@@ -60,13 +60,12 @@ final class NestedArrayConfig implements ConfigInterface
     /**
      * @param string     $key
      * @param float|null $default
-     * @param bool       $nullable
      *
      * @return float
      */
     public function float(string $key, ?float $default = null): float
     {
-        $value = $this->get($key, $default, false);
+        $value = $this->get($key, $default);
         if (!is_float($value)) {
             throw InvalidValueException::expectedFloatFromKey($key, $value);
         }
@@ -81,7 +80,7 @@ final class NestedArrayConfig implements ConfigInterface
      */
     public function bool(string $key, ?bool $default = null): bool
     {
-        $value = $this->get($key, $default, false);
+        $value = $this->get($key, $default);
         if (!is_bool($value)) {
             throw InvalidValueException::expectedBooleanFromKey($key, $value);
         }
@@ -96,7 +95,7 @@ final class NestedArrayConfig implements ConfigInterface
      */
     public function array(string $key, ?array $default = null): array
     {
-        $value = $this->get($key, $default, false);
+        $value = $this->get($key, $default);
         if (!is_array($value)) {
             throw InvalidValueException::expectedArrayFromKey($key, $value);
         }
@@ -111,7 +110,7 @@ final class NestedArrayConfig implements ConfigInterface
      */
     public function callable(string $key, ?callable $default = null): callable
     {
-        $value = $this->get($key, $default, false);
+        $value = $this->get($key, $default);
         if (!is_callable($value)) {
             throw InvalidValueException::expectedCallableFromKey($key, $value);
         }
@@ -125,7 +124,7 @@ final class NestedArrayConfig implements ConfigInterface
      *
      * @return mixed
      */
-    public function get(string $key, mixed $default = null, bool $nullable = true): mixed
+    public function get(string $key, mixed $default = null, bool $nullable = false): mixed
     {
         $value = $this->softGet($key);
         if ($value === null) {

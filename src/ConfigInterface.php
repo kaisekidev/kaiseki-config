@@ -22,7 +22,7 @@ interface ConfigInterface
      */
     public function array(string $key, ?array $default = null): array;
 
-    public function get(string $key, mixed $default, bool $nullable = true): mixed;
+    public function get(string $key, mixed $default = null, bool $nullable = true): mixed;
 
     public function softGet(string $key): mixed;
 

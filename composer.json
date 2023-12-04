@@ -72,7 +72,8 @@
     "check": [
       "@check-deps",
       "@cs-check",
-      "@phpstan"
+      "@phpstan",
+      "phpuhnit"
     ],
     "fix": [
       "@cs-fix",
