@@ -6,21 +6,21 @@ namespace Kaiseki\Config;
 
 interface ConfigInterface
 {
-    public function string(string $key, ?string $default): string;
+    public function string(string $key, ?string $default = null): string;
 
-    public function int(string $key, ?int $default): int;
+    public function int(string $key, ?int $default = null): int;
 
-    public function float(string $key, ?float $default): float;
+    public function float(string $key, ?float $default = null): float;
 
-    public function bool(string $key, ?bool $default): bool;
+    public function bool(string $key, ?bool $default = null): bool;
 
     /**
      * @param string                  $key
-     * @param array<array-key, mixed> $default
+     * @param array<array-key, mixed> $default = null
      *
      * @return array<array-key, mixed>
      */
-    public function array(string $key, ?array $default): array;
+    public function array(string $key, ?array $default = null): array;
 
     public function get(string $key, mixed $default, bool $nullable = true): mixed;
 
