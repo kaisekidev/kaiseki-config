@@ -18,13 +18,34 @@ use function is_string;
 
 final class NestedArrayConfig implements ConfigInterface
 {
-    public const DELIMITER = '.';
+    /** @var non-empty-string */
+    private string $delimiter;
+
+    public const DEFAULT_DELIMITER = '.';
 
     /**
      * @param array<array-key, mixed> $config
+     * @param string|null             $delimiter
      */
-    public function __construct(private readonly array $config)
-    {
+    public function __construct(
+        private readonly array $config,
+        ?string $delimiter = null
+    ) {
+        if ($delimiter !== null && $delimiter !== '') {
+            $this->delimiter = $delimiter;
+            return;
+        }
+
+        if (
+            isset($config['config_delimiter'])
+            && is_string($config['config_delimiter'])
+            && $config['config_delimiter'] !== ''
+        ) {
+            $this->delimiter = $config['config_delimiter'];
+            return;
+        }
+
+        $this->delimiter = self::DEFAULT_DELIMITER;
     }
 
     /**
@@ -143,7 +164,7 @@ final class NestedArrayConfig implements ConfigInterface
      */
     public function softGet(string $key): mixed
     {
-        $paths = explode(self::DELIMITER, $key);
+        $paths = explode($this->delimiter, $key);
         $current = $this->config;
         foreach ($paths as $index) {
             if (!is_array($current) || !array_key_exists($index, $current)) {
