@@ -62,9 +62,10 @@ final class Config
 
     /**
      * @param array<array-key, mixed> $config
+     * @param non-empty-string        $delimiter
      */
-    public static function build(array $config): ConfigInterface
+    public static function build(array $config, string $delimiter): ConfigInterface
     {
-        return new NestedArrayConfig($config);
+        return new NestedArrayConfig($config, $delimiter);
     }
 }

@@ -18,34 +18,14 @@ use function is_string;
 
 final class NestedArrayConfig implements ConfigInterface
 {
-    /** @var non-empty-string */
-    private string $delimiter;
-
-    public const DEFAULT_DELIMITER = '.';
-
     /**
      * @param array<array-key, mixed> $config
-     * @param string|null             $delimiter
+     * @param non-empty-string        $delimiter
      */
     public function __construct(
         private readonly array $config,
-        ?string $delimiter = null
+        private readonly string $delimiter
     ) {
-        if ($delimiter !== null && $delimiter !== '') {
-            $this->delimiter = $delimiter;
-            return;
-        }
-
-        if (
-            isset($config['config_delimiter'])
-            && is_string($config['config_delimiter'])
-            && $config['config_delimiter'] !== ''
-        ) {
-            $this->delimiter = $config['config_delimiter'];
-            return;
-        }
-
-        $this->delimiter = self::DEFAULT_DELIMITER;
     }
 
     /**

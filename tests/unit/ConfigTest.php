@@ -15,7 +15,7 @@ final class ConfigTest extends TestCase
 {
     public function testGet(): void
     {
-        $container = new FakeContainer([ConfigInterface::class => new NestedArrayConfig(['foo' => 'bar'])]);
+        $container = new FakeContainer([ConfigInterface::class => new NestedArrayConfig(['foo' => 'bar'], '.')]);
 
         $config = Config::get($container);
 
@@ -44,7 +44,7 @@ final class ConfigTest extends TestCase
 
     public function testBuild(): void
     {
-        $config = Config::build(['foo' => 'bar']);
+        $config = Config::build(['foo' => 'bar'], '.');
 
         self::assertInstanceOf(NestedArrayConfig::class, $config);
         self::assertSame('bar', $config->string('foo'));
