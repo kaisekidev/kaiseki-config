@@ -12,7 +12,7 @@ use function is_string;
 
 final class NestedArrayConfigFactory
 {
-    public const DEFAULT_DELIMITER = '.';
+    public const DEFAULT_DELIMITER = '/';
 
     public function __invoke(ContainerInterface $container): NestedArrayConfig
     {
@@ -20,7 +20,6 @@ final class NestedArrayConfigFactory
         if (!is_array($config)) {
             throw new InvalidArgumentException('Config must be an array');
         }
-
         return new NestedArrayConfig($config, $this->getDelimiter($config));
     }
 

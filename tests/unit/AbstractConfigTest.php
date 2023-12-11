@@ -148,6 +148,7 @@ abstract class AbstractConfigTest extends TestCase
 
     /**
      * @param array<array-key, mixed> $config
+     * @param string                  $delimiter
      */
     abstract protected function createConfig(array $config, string $delimiter = '.'): ConfigInterface;
 }

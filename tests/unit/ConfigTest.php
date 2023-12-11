@@ -44,7 +44,8 @@ final class ConfigTest extends TestCase
 
     public function testBuild(): void
     {
-        $config = Config::build(['foo' => 'bar'], '.');
+        $container = new FakeContainer(['config' => ['foo' => 'bar']]);
+        $config = Config::build($container, '.');
 
         self::assertInstanceOf(NestedArrayConfig::class, $config);
         self::assertSame('bar', $config->string('foo'));

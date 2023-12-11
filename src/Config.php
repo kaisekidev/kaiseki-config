@@ -11,6 +11,15 @@ use function is_object;
 
 final class Config
 {
+    /**
+     * @param ContainerInterface $container
+     * @param non-empty-string   $delimiter
+     */
+    public static function build(ContainerInterface $container, string $delimiter): ConfigInterface
+    {
+        return new NestedArrayConfig((array)$container->get('config'), $delimiter);
+    }
+
     public static function get(ContainerInterface $container): ConfigInterface
     {
         return $container->get(ConfigInterface::class);
@@ -58,14 +67,5 @@ final class Config
         /** @phpstan-var T $object */
         $object = $container->get($value);
         return $object;
-    }
-
-    /**
-     * @param array<array-key, mixed> $config
-     * @param non-empty-string        $delimiter
-     */
-    public static function build(array $config, string $delimiter): ConfigInterface
-    {
-        return new NestedArrayConfig($config, $delimiter);
     }
 }

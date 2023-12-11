@@ -21,12 +21,12 @@ final class NestedArrayConfigFactoryTest extends TestCase
 
     public function testCreateInstance(): void
     {
-        $config = ['test' => 'foo'];
+        $config = ['parent' => ['child' => 'foo']];
         $container = new FakeContainer(['config' => $config]);
 
         $instance = ($this->factory)($container);
 
-        self::assertSame('foo', $instance->string('test'));
+        self::assertSame('foo', $instance->string('parent/child'));
     }
 
     public function testThrowsExceptionWhenConfigIsNotArray(): void

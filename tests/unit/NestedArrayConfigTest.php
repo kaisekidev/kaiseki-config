@@ -11,6 +11,7 @@ class NestedArrayConfigTest extends AbstractConfigTest
 {
     /**
      * @param array<array-key, mixed> $config
+     * @param string                  $delimiter
      */
     protected function createConfig(array $config, string $delimiter = '.'): ConfigInterface
     {
