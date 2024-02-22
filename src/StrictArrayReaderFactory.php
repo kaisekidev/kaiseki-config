@@ -10,17 +10,17 @@ use Psr\Container\ContainerInterface;
 use function is_array;
 use function is_string;
 
-final class NestedArrayConfigFactory
+final class StrictArrayReaderFactory
 {
-    public const DEFAULT_DELIMITER = '/';
+    public const DEFAULT_DELIMITER = '.';
 
-    public function __invoke(ContainerInterface $container): NestedArrayConfig
+    public function __invoke(ContainerInterface $container): StrictArrayReader
     {
         $config = $container->get('config');
         if (!is_array($config)) {
             throw new InvalidArgumentException('Config must be an array');
         }
-        return new NestedArrayConfig($config, $this->getDelimiter($config));
+        return new StrictArrayReader($config, $this->getDelimiter($config));
     }
 
     /**

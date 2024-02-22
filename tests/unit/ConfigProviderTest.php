@@ -6,8 +6,8 @@ namespace Kaiseki\Test\Unit\Config;
 
 use Kaiseki\Config\ConfigInterface;
 use Kaiseki\Config\ConfigProvider;
-use Kaiseki\Config\NestedArrayConfig;
-use Kaiseki\Config\NestedArrayConfigFactory;
+use Kaiseki\Config\StrictArrayReader;
+use Kaiseki\Config\StrictArrayReaderFactory;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigProviderTest extends TestCase
@@ -18,10 +18,10 @@ final class ConfigProviderTest extends TestCase
             [
                 'dependencies' => [
                     'aliases' => [
-                        ConfigInterface::class => NestedArrayConfig::class,
+                        ConfigInterface::class => StrictArrayReader::class,
                     ],
                     'factories' => [
-                        NestedArrayConfig::class => NestedArrayConfigFactory::class,
+                        StrictArrayReader::class => StrictArrayReaderFactory::class,
                     ],
                 ],
             ],

@@ -16,7 +16,7 @@ use function is_float;
 use function is_int;
 use function is_string;
 
-final class NestedArrayConfig implements ConfigInterface
+final class StrictArrayReader implements ConfigInterface
 {
     /**
      * @param array<array-key, mixed> $config
@@ -24,8 +24,17 @@ final class NestedArrayConfig implements ConfigInterface
      */
     public function __construct(
         private readonly array $config,
-        private readonly string $delimiter
+        private string $delimiter
     ) {
+    }
+
+    public function withDelimiter(string $delimiter): self
+    {
+        if ($delimiter === '') {
+            throw new \InvalidArgumentException('Delimiter cannot be an empty string');
+        }
+        $this->delimiter = $delimiter;
+        return $this;
     }
 
     /**

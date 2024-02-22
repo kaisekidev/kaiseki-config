@@ -17,7 +17,7 @@ final class Config
      */
     public static function build(ContainerInterface $container, string $delimiter): ConfigInterface
     {
-        return new NestedArrayConfig((array)$container->get('config'), $delimiter);
+        return new StrictArrayReader((array)$container->get('config'), $delimiter);
     }
 
     public static function get(ContainerInterface $container): ConfigInterface

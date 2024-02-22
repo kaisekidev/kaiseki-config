@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Kaiseki\Test\Unit\Config;
 
 use Kaiseki\Config\ConfigInterface;
-use Kaiseki\Config\NestedArrayConfig;
+use Kaiseki\Config\StrictArrayReader;
 
-class NestedArrayConfigTest extends AbstractConfigTest
+class StrictArrayReaderTest extends AbstractConfigTest
 {
     /**
      * @param array<array-key, mixed> $config
@@ -15,6 +15,6 @@ class NestedArrayConfigTest extends AbstractConfigTest
      */
     protected function createConfig(array $config, string $delimiter = '.'): ConfigInterface
     {
-        return new NestedArrayConfig($config, '.');
+        return new StrictArrayReader($config, '.');
     }
 }

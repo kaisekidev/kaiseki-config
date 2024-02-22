@@ -6,7 +6,7 @@ namespace Kaiseki\Test\Unit\Config;
 
 use Kaiseki\Config\Config;
 use Kaiseki\Config\ConfigInterface;
-use Kaiseki\Config\NestedArrayConfig;
+use Kaiseki\Config\StrictArrayReader;
 use Kaiseki\Test\Unit\Config\TestDouble\FakeContainer;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -15,7 +15,7 @@ final class ConfigTest extends TestCase
 {
     public function testGet(): void
     {
-        $container = new FakeContainer([ConfigInterface::class => new NestedArrayConfig(['foo' => 'bar'], '.')]);
+        $container = new FakeContainer([ConfigInterface::class => new StrictArrayReader(['foo' => 'bar'], '.')]);
 
         $config = Config::get($container);
 
@@ -47,7 +47,7 @@ final class ConfigTest extends TestCase
         $container = new FakeContainer(['config' => ['foo' => 'bar']]);
         $config = Config::build($container, '.');
 
-        self::assertInstanceOf(NestedArrayConfig::class, $config);
+        self::assertInstanceOf(StrictArrayReader::class, $config);
         self::assertSame('bar', $config->string('foo'));
     }
 }

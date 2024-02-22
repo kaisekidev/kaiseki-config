@@ -14,10 +14,10 @@ final class ConfigProvider
         return [
             'dependencies' => [
                 'aliases' => [
-                    ConfigInterface::class => NestedArrayConfig::class,
+                    ConfigInterface::class => StrictArrayReader::class,
                 ],
                 'factories' => [
-                    NestedArrayConfig::class => NestedArrayConfigFactory::class,
+                    StrictArrayReader::class => StrictArrayReaderFactory::class,
                 ],
             ],
         ];
