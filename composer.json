@@ -71,12 +71,12 @@
       "@check-deps",
       "@cs-check",
       "@phpstan",
-      "@test"
+      "@phpunit"
     ],
     "cs-check": "php-cs-fixer fix --dry-run",
     "cs-fix": "php-cs-fixer fix --allow-risky=yes",
     "check-deps": "composer-require-checker --config-file=require-checker.config.json",
     "phpstan": "phpstan analyse --memory-limit 1G",
-    "test": "phpunit"
+    "phpunit": "phpunit"
   }
 }
