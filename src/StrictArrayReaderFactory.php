@@ -20,6 +20,7 @@ final class StrictArrayReaderFactory
         if (!is_array($config)) {
             throw new InvalidArgumentException('Config must be an array');
         }
+
         return new StrictArrayReader($config, $this->getDelimiter($config));
     }
 

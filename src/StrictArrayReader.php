@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kaiseki\Config;
 
+use InvalidArgumentException;
 use Kaiseki\Config\Exception\InvalidValueException;
 use Kaiseki\Config\Exception\UnknownKeyException;
 
@@ -31,9 +32,10 @@ final class StrictArrayReader implements ConfigInterface
     public function withDelimiter(string $delimiter): self
     {
         if ($delimiter === '') {
-            throw new \InvalidArgumentException('Delimiter cannot be an empty string');
+            throw new InvalidArgumentException('Delimiter cannot be an empty string');
         }
         $this->delimiter = $delimiter;
+
         return $this;
     }
 
@@ -49,6 +51,7 @@ final class StrictArrayReader implements ConfigInterface
         if (!is_string($value)) {
             throw InvalidValueException::expectedStringFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -64,6 +67,7 @@ final class StrictArrayReader implements ConfigInterface
         if (!is_int($value)) {
             throw InvalidValueException::expectedIntegerFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -79,6 +83,7 @@ final class StrictArrayReader implements ConfigInterface
         if (!is_float($value)) {
             throw InvalidValueException::expectedFloatFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -94,6 +99,7 @@ final class StrictArrayReader implements ConfigInterface
         if (!is_bool($value)) {
             throw InvalidValueException::expectedBooleanFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -109,6 +115,7 @@ final class StrictArrayReader implements ConfigInterface
         if (!is_array($value)) {
             throw InvalidValueException::expectedArrayFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -124,6 +131,7 @@ final class StrictArrayReader implements ConfigInterface
         if (!is_callable($value)) {
             throw InvalidValueException::expectedCallableFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -141,8 +149,10 @@ final class StrictArrayReader implements ConfigInterface
             if ($default !== null || $nullable) {
                 return $default;
             }
+
             throw UnknownKeyException::fromKey($key);
         }
+
         return $value;
     }
 
@@ -161,6 +171,7 @@ final class StrictArrayReader implements ConfigInterface
             }
             $current = $current[$index];
         }
+
         return $current;
     }
 

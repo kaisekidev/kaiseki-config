@@ -43,6 +43,7 @@ final class Config
             $object = self::initClass($container, $value);
             $init[$key] = $object;
         }
+
         return $init;
     }
 
@@ -66,6 +67,7 @@ final class Config
         }
         /** @phpstan-var T $object */
         $object = $container->get($value);
+
         return $object;
     }
 }
