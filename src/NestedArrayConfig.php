@@ -16,15 +16,15 @@ use function is_float;
 use function is_int;
 use function is_string;
 
-final class NestedArrayConfig implements ConfigInterface
+final class NestedArrayConfig
 {
+    public const DELIMITER = '.';
+
     /**
      * @param array<array-key, mixed> $config
-     * @param non-empty-string        $delimiter
      */
     public function __construct(
         private readonly array $config,
-        private readonly string $delimiter
     ) {
     }
 
@@ -144,7 +144,7 @@ final class NestedArrayConfig implements ConfigInterface
      */
     public function softGet(string $key): mixed
     {
-        $paths = explode($this->delimiter, $key);
+        $paths = explode(self::DELIMITER, $key);
         $current = $this->config;
         foreach ($paths as $index) {
             if (!is_array($current) || !array_key_exists($index, $current)) {

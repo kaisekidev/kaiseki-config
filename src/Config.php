@@ -13,16 +13,10 @@ final class Config
 {
     /**
      * @param ContainerInterface $container
-     * @param non-empty-string   $delimiter
      */
-    public static function build(ContainerInterface $container, string $delimiter): ConfigInterface
+    public static function fromContainer(ContainerInterface $container): NestedArrayConfig
     {
-        return new NestedArrayConfig((array)$container->get('config'), $delimiter);
-    }
-
-    public static function get(ContainerInterface $container): ConfigInterface
-    {
-        return $container->get(ConfigInterface::class);
+        return new NestedArrayConfig((array)$container->get('config'));
     }
 
     /**
