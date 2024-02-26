@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Kaiseki\Test\Unit\Config;
 
-use Kaiseki\Config\ConfigInterface;
 use Kaiseki\Config\Exception\InvalidValueException;
 use Kaiseki\Config\Exception\UnknownKeyException;
+use Kaiseki\Config\NestedArrayConfig;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractConfigTest extends TestCase
@@ -148,7 +148,6 @@ abstract class AbstractConfigTest extends TestCase
 
     /**
      * @param array<array-key, mixed> $config
-     * @param string                  $delimiter
      */
-    abstract protected function createConfig(array $config, string $delimiter = '.'): ConfigInterface;
+    abstract protected function createConfig(array $config): NestedArrayConfig;
 }

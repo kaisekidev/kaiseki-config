@@ -13,11 +13,11 @@ use stdClass;
 
 final class ConfigTest extends TestCase
 {
-    public function testGet(): void
+    public function testFromContainer(): void
     {
-        $container = new FakeContainer([ConfigInterface::class => new NestedArrayConfig(['foo' => 'bar'], '.')]);
+        $container = new FakeContainer(['config' => ['foo' => 'bar']]);
 
-        $config = Config::get($container);
+        $config = Config::fromContainer($container);
 
         self::assertSame('bar', $config->string('foo'));
     }
@@ -45,9 +45,8 @@ final class ConfigTest extends TestCase
     public function testBuild(): void
     {
         $container = new FakeContainer(['config' => ['foo' => 'bar']]);
-        $config = Config::build($container, '.');
+        $config = Config::fromContainer($container);
 
-        self::assertInstanceOf(NestedArrayConfig::class, $config);
         self::assertSame('bar', $config->string('foo'));
     }
 }
