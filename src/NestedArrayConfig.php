@@ -40,6 +40,7 @@ final class NestedArrayConfig
         if (!is_string($value)) {
             throw InvalidValueException::expectedStringFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -55,6 +56,7 @@ final class NestedArrayConfig
         if (!is_int($value)) {
             throw InvalidValueException::expectedIntegerFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -70,6 +72,7 @@ final class NestedArrayConfig
         if (!is_float($value)) {
             throw InvalidValueException::expectedFloatFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -85,6 +88,7 @@ final class NestedArrayConfig
         if (!is_bool($value)) {
             throw InvalidValueException::expectedBooleanFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -100,6 +104,7 @@ final class NestedArrayConfig
         if (!is_array($value)) {
             throw InvalidValueException::expectedArrayFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -115,6 +120,7 @@ final class NestedArrayConfig
         if (!is_callable($value)) {
             throw InvalidValueException::expectedCallableFromKey($key, $value);
         }
+
         return $value;
     }
 
@@ -132,8 +138,10 @@ final class NestedArrayConfig
             if ($default !== null || $nullable) {
                 return $default;
             }
+
             throw UnknownKeyException::fromKey($key);
         }
+
         return $value;
     }
 
@@ -152,6 +160,7 @@ final class NestedArrayConfig
             }
             $current = $current[$index];
         }
+
         return $current;
     }
 

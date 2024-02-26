@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Kaiseki\Test\Unit\Config;
 
 use Kaiseki\Config\Config;
-use Kaiseki\Config\ConfigInterface;
-use Kaiseki\Config\NestedArrayConfig;
 use Kaiseki\Test\Unit\Config\TestDouble\FakeContainer;
 use PHPUnit\Framework\TestCase;
 use stdClass;
