@@ -16,7 +16,7 @@ use function is_float;
 use function is_int;
 use function is_string;
 
-final class NestedArrayConfig
+class NestedArrayConfig
 {
     public const DELIMITER = '.';
 
