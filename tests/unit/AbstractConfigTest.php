@@ -30,7 +30,6 @@ abstract class AbstractConfigTest extends TestCase
      */
     public function configCases(): iterable
     {
-        $callable = fn() => 'foo';
         $config = [
             'a' => [
                 'a' => [
@@ -39,7 +38,6 @@ abstract class AbstractConfigTest extends TestCase
                     'c' => 23.42,
                     'd' => true,
                     'e' => ['foo', 'bar'],
-                    'f' => $callable,
                 ],
             ],
             'b' => [
@@ -52,7 +50,6 @@ abstract class AbstractConfigTest extends TestCase
         yield [$config, 'a.a.c', 'float', 23.42];
         yield [$config, 'a.a.d', 'bool', true];
         yield [$config, 'a.a.e', 'array', ['foo', 'bar']];
-        yield [$config, 'a.a.f', 'callable', $callable];
         yield [$config, 'b.a', 'string', 'Bar'];
         yield [$config, 'b', 'array', ['a' => 'Bar']];
         yield [$config, 'c', 'string', 'Baz'];
@@ -84,7 +81,6 @@ abstract class AbstractConfigTest extends TestCase
         yield ['float'];
         yield ['bool'];
         yield ['array'];
-        yield ['callable'];
     }
 
     /**
@@ -111,7 +107,6 @@ abstract class AbstractConfigTest extends TestCase
         yield ['foo', 'float'];
         yield ['foo', 'bool'];
         yield ['foo', 'array'];
-        yield ['foo', 'callable'];
     }
 
     /**
@@ -136,7 +131,6 @@ abstract class AbstractConfigTest extends TestCase
         yield [23.45, 'float'];
         yield [false, 'bool'];
         yield [['foo' => 'bar'], 'array'];
-        yield [fn() => 'foo', 'callable'];
     }
 
     public function testNullableGet(): void
