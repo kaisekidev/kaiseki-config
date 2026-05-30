@@ -7,18 +7,18 @@ namespace Kaiseki\Test\Unit\Config;
 use Kaiseki\Config\Exception\InvalidValueException;
 use Kaiseki\Config\Exception\UnknownKeyException;
 use Kaiseki\Config\NestedArrayConfig;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractConfigTest extends TestCase
 {
     /**
-     * @dataProvider configCases
-     *
      * @param array<array-key, mixed> $config
      * @param string                  $path
      * @param string                  $method
      * @param mixed                   $expected
      */
+    #[DataProvider('configCases')]
     public function testGet(array $config, string $path, string $method, $expected): void
     {
         /* @phpstan-ignore-next-line */
@@ -28,7 +28,7 @@ abstract class AbstractConfigTest extends TestCase
     /**
      * @return iterable<array{0: array<array-key, mixed>, 1: string, 2: string, 3: mixed}>
      */
-    public function configCases(): iterable
+    public static function configCases(): iterable
     {
         $config = [
             'a' => [
@@ -58,10 +58,9 @@ abstract class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @dataProvider unkonwnKeyCases
-     *
      * @param string $method
      */
+    #[DataProvider('unkonwnKeyCases')]
     public function testUnknownKey(string $method): void
     {
         $this->expectException(UnknownKeyException::class);
@@ -73,7 +72,7 @@ abstract class AbstractConfigTest extends TestCase
     /**
      * @return iterable<array{0: string}>
      */
-    public function unkonwnKeyCases(): iterable
+    public static function unkonwnKeyCases(): iterable
     {
         yield ['get'];
         yield ['int'];
@@ -84,11 +83,10 @@ abstract class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidValueCases
-     *
      * @param mixed  $value
      * @param string $method
      */
+    #[DataProvider('invalidValueCases')]
     public function testInvalidValue(mixed $value, string $method): void
     {
         $this->expectException(InvalidValueException::class);
@@ -100,7 +98,7 @@ abstract class AbstractConfigTest extends TestCase
     /**
      * @return iterable<array{0: mixed, 1: string}>
      */
-    public function invalidValueCases(): iterable
+    public static function invalidValueCases(): iterable
     {
         yield ['foo', 'int'];
         yield [12345, 'string'];
@@ -110,11 +108,10 @@ abstract class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @dataProvider defaultValueCases
-     *
      * @param mixed  $defaultValue
      * @param string $method
      */
+    #[DataProvider('defaultValueCases')]
     public function testDefaultValue(mixed $defaultValue, string $method): void
     {
         /* @phpstan-ignore-next-line */
@@ -124,7 +121,7 @@ abstract class AbstractConfigTest extends TestCase
     /**
      * @return iterable<array{0: mixed, 1: string}>
      */
-    public function defaultValueCases(): iterable
+    public static function defaultValueCases(): iterable
     {
         yield ['foo', 'string'];
         yield [42, 'int'];
