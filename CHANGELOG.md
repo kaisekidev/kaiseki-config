@@ -4,9 +4,16 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ## 2.0.0 - 2026-05-30
 
+Cuts a new major to release the BC changes accumulated since 1.7.0 (2023) plus the
+PHP 8.4 / modern-tooling baseline.
+
 ### Changed
 
 - **BC:** raised the PHP requirement to `^8.2` (was `^8.1`). PHP 8.4 is the primary target.
+- **BC:** path delimiter is now `.` (matches laminas/laravel). See `Config::DELIMITER`.
+- **BC:** `get()`'s `$nullable` parameter now defaults to `false` (1.6.0 had defaulted it to
+  `true`; the default was later reverted to align with the typed getters' behavior and the
+  `testUnknownKey` expectations).
 - Modernized the dev toolchain (PHPStan 2 + `phpstan-safe-rule ^1.4`, PHPUnit 11,
   composer-require-checker 4) and depend on `kaiseki/php-coding-standard: ^1.0` with the shared
   PHPStan config; CI runs via the reusable workflow in `kaisekidev/.github`. Dropped the redundant
@@ -15,15 +22,16 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ## 1.7.0 - 2023-12-03
 
-### Fixed
+### Changed
 
-- `ConfigInterface` signature fix.
+- Allow `null` as the default value for typed getters (`string()`, `int()`, `float()`, `bool()`, `array()`).
 
 ## 1.6.0 - 2023-11-28
 
 ### Changed
 
-- `get()` now defaults `nullable` to `true`.
+- Made `get()`'s `$nullable` parameter optional, defaulted to `true`. (Subsequently reverted to
+  `false` — see 2.0.0.)
 
 ## 1.5.0 - 2023-11-28
 

@@ -1,6 +1,6 @@
 # kaiseki/config
 
-Type-safe access to array configuration, with dot-notation paths.
+Type-safe access to array configurations, with dot-notation paths.
 
 Wrap a config array (or pull one from a PSR-11 container) and read values with typed accessors that
 throw on a missing key or a wrong type — so a typo or a misconfigured value fails loudly instead of
