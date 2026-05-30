@@ -22,12 +22,12 @@ final class Config
     /**
      * @template T of object
      *
+     * @param ContainerInterface $container
+     * @param array              $map
+     *
      * @phpstan-param array<array-key, class-string<T>|T> $map
      *
      * @phpstan-return array<array-key, T>
-     *
-     * @param ContainerInterface $container
-     * @param array              $map
      */
     public static function initClassMap(ContainerInterface $container, array $map): array
     {
@@ -44,12 +44,12 @@ final class Config
     /**
      * @template T of object
      *
+     * @param ContainerInterface $container
+     * @param object|string      $value
+     *
      * @phpstan-param class-string<T>|T $value
      *
      * @phpstan-return T
-     *
-     * @param ContainerInterface $container
-     * @param object|string      $value
      */
     public static function initClass(ContainerInterface $container, string|object $value): object
     {
