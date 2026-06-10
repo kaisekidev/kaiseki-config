@@ -47,6 +47,16 @@ interface ConfigInterface
     public function array(string $key, ?array $default = null): array;
 
     /**
+     * Read the value at $key as a string-keyed array, dropping any integer-keyed elements.
+     *
+     * @param string                    $key
+     * @param array<string, mixed>|null $default
+     *
+     * @return array<string, mixed>
+     */
+    public function stringKeyedArray(string $key, ?array $default = null): array;
+
+    /**
      * Read the value at $key as a list of strings, dropping any non-string elements.
      *
      * @param string            $key

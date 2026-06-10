@@ -11,6 +11,10 @@ All notable changes to this project will be documented in this file, in reverse 
   `list<int>` / `list<float>`, dropping non-matching elements and re-indexing — replacing the
   recurring `array_values(array_filter($config->array($key), 'is_string'))` boilerplate at call
   sites. Missing-key and wrong-type behaviour matches `array()` (throws unless a default is given).
+- `stringKeyedArray()` accessor — reads the array at a key and narrows it to an
+  `array<string, mixed>`, dropping integer-keyed elements while preserving the string keys.
+  Replaces the recurring `array_filter($config->array($key), 'is_string', ARRAY_FILTER_USE_KEY)`
+  pattern used to read option maps. Same missing-key / wrong-type behaviour as `array()`.
 
 ## 2.0.0 - 2026-05-30
 

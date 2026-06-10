@@ -17,6 +17,8 @@ use function is_float;
 use function is_int;
 use function is_string;
 
+use const ARRAY_FILTER_USE_KEY;
+
 class NestedArrayConfig implements ConfigInterface
 {
     public const DELIMITER = '.';
@@ -112,6 +114,21 @@ class NestedArrayConfig implements ConfigInterface
         }
 
         return $value;
+    }
+
+    /**
+     * @param string                    $key
+     * @param array<string, mixed>|null $default
+     *
+     * @return array<string, mixed>
+     */
+    public function stringKeyedArray(string $key, ?array $default = null): array
+    {
+        return array_filter(
+            $this->array($key, $default),
+            static fn(int|string $arrayKey): bool => is_string($arrayKey),
+            ARRAY_FILTER_USE_KEY,
+        );
     }
 
     /**
