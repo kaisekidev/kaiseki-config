@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kaiseki\Test\Unit\Config;
 
 use Kaiseki\Config\Config;
+use Kaiseki\Config\Exception\UnkownClassNameException;
 use Kaiseki\Test\Unit\Config\TestDouble\FakeContainer;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -38,6 +39,25 @@ final class ConfigTest extends TestCase
         $classMap = Config::initClassMap($container, ['foo' => stdClass::class, 'bar' => stdClass::class]);
 
         self::assertSame(['foo' => $expected, 'bar' => $expected], $classMap);
+    }
+
+    public function testInitClassMapPassesThroughObjectInstances(): void
+    {
+        $instance = new stdClass();
+        $container = new FakeContainer([]);
+
+        $classMap = Config::initClassMap($container, ['foo' => $instance]);
+
+        self::assertSame(['foo' => $instance], $classMap);
+    }
+
+    public function testInitClassThrowsWhenClassNameNotInContainer(): void
+    {
+        $container = new FakeContainer([]);
+
+        $this->expectException(UnkownClassNameException::class);
+
+        Config::initClass($container, stdClass::class);
     }
 
     public function testBuild(): void
