@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## Unreleased
+## 2.1.0 - 2026-06-10
 
 ### Added
 
