@@ -7,13 +7,17 @@ namespace Kaiseki\Config;
 use Kaiseki\Config\Exception\InvalidValueException;
 use Kaiseki\Config\Exception\UnknownKeyException;
 
+use function array_filter;
 use function array_key_exists;
+use function array_values;
 use function explode;
 use function is_array;
 use function is_bool;
 use function is_float;
 use function is_int;
 use function is_string;
+
+use const ARRAY_FILTER_USE_KEY;
 
 class NestedArrayConfig implements ConfigInterface
 {
@@ -110,6 +114,63 @@ class NestedArrayConfig implements ConfigInterface
         }
 
         return $value;
+    }
+
+    /**
+     * @param string                    $key
+     * @param array<string, mixed>|null $default
+     *
+     * @return array<string, mixed>
+     */
+    public function stringKeyedArray(string $key, ?array $default = null): array
+    {
+        return array_filter(
+            $this->array($key, $default),
+            static fn(int|string $arrayKey): bool => is_string($arrayKey),
+            ARRAY_FILTER_USE_KEY,
+        );
+    }
+
+    /**
+     * @param string            $key
+     * @param list<string>|null $default
+     *
+     * @return list<string>
+     */
+    public function stringList(string $key, ?array $default = null): array
+    {
+        return array_values(array_filter(
+            $this->array($key, $default),
+            static fn(mixed $value): bool => is_string($value),
+        ));
+    }
+
+    /**
+     * @param string         $key
+     * @param list<int>|null $default
+     *
+     * @return list<int>
+     */
+    public function intList(string $key, ?array $default = null): array
+    {
+        return array_values(array_filter(
+            $this->array($key, $default),
+            static fn(mixed $value): bool => is_int($value),
+        ));
+    }
+
+    /**
+     * @param string           $key
+     * @param list<float>|null $default
+     *
+     * @return list<float>
+     */
+    public function floatList(string $key, ?array $default = null): array
+    {
+        return array_values(array_filter(
+            $this->array($key, $default),
+            static fn(mixed $value): bool => is_float($value),
+        ));
     }
 
     /**

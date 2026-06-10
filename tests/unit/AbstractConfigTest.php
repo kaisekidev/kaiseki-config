@@ -44,6 +44,14 @@ abstract class AbstractConfigTest extends TestCase
                 'a' => 'Bar',
             ],
             'c' => 'Baz',
+            'lists' => [
+                'strings' => ['foo', 1, 'bar', true],
+                'ints' => [1, 'a', 2, 1.5],
+                'floats' => [1.5, 'a', 2.5, 3],
+            ],
+            'maps' => [
+                'mixed' => ['a' => 1, 0 => 'x', 'b' => 2, 7 => 'y'],
+            ],
         ];
         yield [$config, 'a.a.a', 'string', 'Foo'];
         yield [$config, 'a.a.b', 'int', 23];
@@ -55,6 +63,13 @@ abstract class AbstractConfigTest extends TestCase
         yield [$config, 'c', 'string', 'Baz'];
         yield [$config, 'a.a.a', 'has', true];
         yield [$config, 'a.a.foobar', 'has', false];
+        // typed lists drop non-matching elements and re-index to a 0-based list
+        yield [$config, 'a.a.e', 'stringList', ['foo', 'bar']];
+        yield [$config, 'lists.strings', 'stringList', ['foo', 'bar']];
+        yield [$config, 'lists.ints', 'intList', [1, 2]];
+        yield [$config, 'lists.floats', 'floatList', [1.5, 2.5]];
+        // stringKeyedArray drops integer-keyed elements, preserving the string keys
+        yield [$config, 'maps.mixed', 'stringKeyedArray', ['a' => 1, 'b' => 2]];
     }
 
     /**
@@ -80,6 +95,10 @@ abstract class AbstractConfigTest extends TestCase
         yield ['float'];
         yield ['bool'];
         yield ['array'];
+        yield ['stringList'];
+        yield ['intList'];
+        yield ['floatList'];
+        yield ['stringKeyedArray'];
     }
 
     /**
@@ -105,6 +124,10 @@ abstract class AbstractConfigTest extends TestCase
         yield ['foo', 'float'];
         yield ['foo', 'bool'];
         yield ['foo', 'array'];
+        yield ['foo', 'stringList'];
+        yield ['foo', 'intList'];
+        yield ['foo', 'floatList'];
+        yield ['foo', 'stringKeyedArray'];
     }
 
     /**
@@ -128,6 +151,10 @@ abstract class AbstractConfigTest extends TestCase
         yield [23.45, 'float'];
         yield [false, 'bool'];
         yield [['foo' => 'bar'], 'array'];
+        yield [['foo', 'bar'], 'stringList'];
+        yield [[1, 2], 'intList'];
+        yield [[1.5, 2.5], 'floatList'];
+        yield [['a' => 1, 'b' => 2], 'stringKeyedArray'];
     }
 
     public function testNullableGet(): void
