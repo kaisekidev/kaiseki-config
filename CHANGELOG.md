@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## Unreleased
+
+### Added
+
+- `stringList()`, `intList()`, and `floatList()` typed accessors on `ConfigInterface` /
+  `NestedArrayConfig`. Each reads the array at a key and narrows it to a `list<string>` /
+  `list<int>` / `list<float>`, dropping non-matching elements and re-indexing — replacing the
+  recurring `array_values(array_filter($config->array($key), 'is_string'))` boilerplate at call
+  sites. Missing-key and wrong-type behaviour matches `array()` (throws unless a default is given).
+
 ## 2.0.0 - 2026-05-30
 
 Cuts a new major to release the BC changes accumulated since 1.7.0 (2023) plus the

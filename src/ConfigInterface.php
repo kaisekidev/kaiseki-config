@@ -47,6 +47,36 @@ interface ConfigInterface
     public function array(string $key, ?array $default = null): array;
 
     /**
+     * Read the value at $key as a list of strings, dropping any non-string elements.
+     *
+     * @param string            $key
+     * @param list<string>|null $default
+     *
+     * @return list<string>
+     */
+    public function stringList(string $key, ?array $default = null): array;
+
+    /**
+     * Read the value at $key as a list of integers, dropping any non-integer elements.
+     *
+     * @param string         $key
+     * @param list<int>|null $default
+     *
+     * @return list<int>
+     */
+    public function intList(string $key, ?array $default = null): array;
+
+    /**
+     * Read the value at $key as a list of floats, dropping any non-float elements.
+     *
+     * @param string           $key
+     * @param list<float>|null $default
+     *
+     * @return list<float>
+     */
+    public function floatList(string $key, ?array $default = null): array;
+
+    /**
      * @param string $key
      * @param mixed  $default
      * @param bool   $nullable

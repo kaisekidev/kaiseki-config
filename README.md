@@ -42,6 +42,25 @@ $config->string('db.user', 'root');      // default when the key is absent
 $config->get('db.password', null, true); // allow null (nullable)
 ```
 
+### Typed lists
+
+`stringList()`, `intList()`, and `floatList()` read the array at a key and narrow it to a
+`list<string>` / `list<int>` / `list<float>`, dropping any element of the wrong type and
+re-indexing the result:
+
+```php
+$config = new NestedArrayConfig(['paths' => ['/a', 42, '/b']]);
+
+$config->stringList('paths'); // ['/a', '/b']  — the 42 is dropped, keys re-indexed
+```
+
+They behave like `array()` for the key itself: a missing key throws `UnknownKeyException` and a
+non-array value throws `InvalidValueException`, unless a default list is supplied:
+
+```php
+$config->stringList('paths', []); // [] when the key is absent
+```
+
 ### From a PSR-11 container
 
 `Config::fromContainer()` reads the `config` entry from a container:
